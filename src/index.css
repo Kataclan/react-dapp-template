@@ -1,13 +1,72 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind forms;
+
+@layer base {
+  @font-face {
+    font-family: Marr Sans Web;
+    src: url("assets/fonts/MarrSans-Regular-Web.eot");
+    src: url("assets/fonts/MarrSans-Regular-Web.eot?#iefix")
+        format("embedded-opentype"),
+      url("assets/fonts/MarrSans-Regular-Web.woff2") format("woff2"),
+      url("assets/fonts/MarrSans-Regular-Web.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+  }
+  @font-face {
+    font-family: "Marr Sans Web";
+    src: url("assets/fonts/MarrSans-Medium-Web.woff2") format("woff2"),
+      url("assets/fonts/MarrSans-Medium-Web.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+  }
+  @font-face {
+    font-family: "GtAmerica";
+    src: url("assets/fonts/GT-America-Standard-Regular.eot");
+    src: url("assets/fonts/GT-America-Standard-Regular.eot?#iefix")
+        format("embedded-opentype"),
+      url("assets/fonts/GT-America-Standard-Regular.woff2") format("woff2"),
+      url("assets/fonts/GT-America-Standard-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+  }
+  @font-face {
+    font-family: "GtAmerica";
+    src: url("assets/fonts/GT-America-Standard-Medium.eot");
+    src: url("assets/fonts/GT-America-Standard-Medium.eot?#iefix")
+        format("embedded-opentype"),
+      url("assets/fonts/GT-America-Standard-Medium.woff2") format("woff2"),
+      url("assets/fonts/GT-America-Standard-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+  }
+}
+@layer base {
+  * {
+    @apply font-gt !important;
+    @apply text-gray-500 !important;
+  }
+
+  h1 {
+    @apply font-sans !important;
+  }
+
+  b,
+  strong {
+    @apply font-medium !important;
+  }
+}
+html {
+  font-size: 12px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@media (min-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
 }

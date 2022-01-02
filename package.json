@@ -1,8 +1,12 @@
 {
-  "name": "zeniverse-dapp",
+  "name": "dapp-template-polygon",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.4.2",
+    "@heroicons/react": "^1.0.5",
+    "@metamask/providers": "^8.1.1",
+    "@tailwindcss/forms": "^0.4.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -10,16 +14,34 @@
     "@types/node": "^16.11.17",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "@walletconnect/ethereum-provider": "^1.7.0",
+    "@walletconnect/web3-provider": "^1.7.0",
+    "axios": "^0.24.0",
+    "craco": "^0.0.3",
+    "ethers": "^5.5.2",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
+    "react-hot-toast": "^2.1.1",
+    "react-loading-skeleton": "^3.0.2",
+    "react-router": "^6.2.1",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "^5.0.0",
     "typescript": "^4.5.4",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "web3modal": "^1.9.4"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.178",
+    "autoprefixer": "^10.4.1",
+    "postcss": "^8.4.5",
+    "prettier": "2.4.1",
+    "tailwindcss": "^3.0.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -39,5 +61,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "engines": {
+    "node": ">=16.13.0"
   }
 }

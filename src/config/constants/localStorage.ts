@@ -1,0 +1,6 @@
+export const DEFAULT_LOCALSTORAGE_PREFIX = "POLYGONDAPP__";
+export const localStorageKeys = {
+  CONNECTOR: "CONNECTOR",
+  LAST_USED_PROVIDER_KEY: "LAST_USED_PROVIDER",
+  LOCAL_CONFIG_KEY: "config",
+};

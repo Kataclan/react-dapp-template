@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { loadChains } from "contexts/config/cache";
+import { FC, useEffect, useState } from "react";
 
-function App() {
+import Router from "router";
+
+const App: FC = () => {
+  const [hasChains, setHasChains] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  // Do some auth logic if you don't want to show some routes
+  useEffect(() => {
+    const initChains = async () => {
+      try {
+        await loadChains();
+        setHasChains(true);
+      } catch (err: any) {
+        setIsError(true);
+      }
+    };
+    initChains();
+  }, []);
+
+  if (!hasChains || isError) {
+    return <></>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router />
+    </>
   );
-}
+};
 
 export default App;
