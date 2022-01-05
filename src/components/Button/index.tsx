@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, FC, ReactElement, ReactText } from "react";
 import classNames from "utils/classname";
 
-interface PropsType extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface PropsType extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "tertiary";
   children: ReactText | ReactElement;
   classes?: string;

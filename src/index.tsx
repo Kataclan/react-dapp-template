@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
+import Router from "router";
+
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import ContextProviders from "ContextProviders";
-import Router from "router";
+import ContextProviders from "./ContextProviders";
 
 ReactDOM.render(
   <React.StrictMode>

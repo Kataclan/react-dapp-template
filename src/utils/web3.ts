@@ -28,7 +28,7 @@ export const numberToHex = (value: number | string) => {
 
   return number.lt(BigNumber.from(0))
     ? "-0x" + result.substr(1)
-    : "0x" + result;
+    : `0x${parseInt("0x" + result, 16)}`;
 };
 
 /**
@@ -45,3 +45,6 @@ export const toBigNumber = (number: number | string | BigNumber) => {
     throw new Error(e + ' Given value: "' + number + '"');
   }
 };
+
+export const getChainHexStr = (chainId: string) =>
+  `0x${parseInt(chainId, 10).toString(16)}`;

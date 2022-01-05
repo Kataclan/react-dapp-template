@@ -2,6 +2,36 @@ import { TOAST_MESSAGES } from "config/constants/toasts";
 import { TOAST_ID } from "types/toasts";
 import { ToastType } from "react-hot-toast/dist/core/types";
 
+// Common errors
+export const TOAST_DEFAULT_ERROR = {
+  key: TOAST_ID.DEFAULT_ERROR_MESSAGE,
+  message: TOAST_MESSAGES[TOAST_ID.DEFAULT_ERROR_MESSAGE],
+  type: "error" as ToastType,
+};
+
+// Wallet connection
+export const TOAST_EMPTY_WALLET = {
+  key: TOAST_ID.EMPTY_WALLET_ERROR,
+  message: TOAST_MESSAGES[TOAST_ID.EMPTY_WALLET_ERROR],
+  type: "error" as ToastType,
+};
+export const TOAST_INVALID_CHAIN_ERROR = {
+  key: TOAST_ID.INVALID_CHAIN_ERROR_MSG,
+  message: TOAST_MESSAGES[TOAST_ID.DEFAULT_ERROR_MESSAGE],
+  type: "error" as ToastType,
+};
+export const TOAST_CONNECT_WALLET_ERROR = {
+  key: TOAST_ID.CONNECT_WALLET_ERROR_MSG,
+  message: TOAST_MESSAGES[TOAST_ID.CONNECT_WALLET_ERROR_MSG],
+  type: "error" as ToastType,
+};
+export const TOAST_SWITCH_CHAIN = {
+  key: TOAST_ID.SWITCH_CHAIN_MSG,
+  message: TOAST_MESSAGES[TOAST_ID.SWITCH_CHAIN_MSG],
+  type: "error" as ToastType,
+};
+
+// Contract transaction Lifecycle Toasts
 export const TOAST_TX_WAITING_CONFIRMATION = {
   key: TOAST_ID.TX_WAITING_CONFIRMATION_MSG,
   message: TOAST_MESSAGES[TOAST_ID.TX_WAITING_CONFIRMATION_MSG],

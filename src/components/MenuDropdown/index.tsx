@@ -1,9 +1,9 @@
+import { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
 import MenuLink from "components/Links/MenuLink";
 import { menuTransition } from "config/constants/cssTransitions";
-import { FC, Fragment } from "react";
 import classname from "utils/classname";
 
 export interface MenuItem {

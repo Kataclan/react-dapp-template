@@ -1,30 +1,33 @@
 import isEmpty from "lodash";
 import {
   APP_ENV,
-  CHAIN_ID,
   DEFAULT_CHAIN_ID,
   DEFAULT_EXPLORER_URL,
   DEFAULT_RPC_URL,
   INFURA_RPC_URL,
 } from "utils/env-constants";
 
-import { ChainConfig, ChainId, ChainName } from "types/chains";
+import { ChainConfig, ChainId, ChainName, Chains } from "types/chains";
 import { emptyChainConfig, getChains } from "./cache";
 import local from "utils/storage/local";
-import { ConfigState } from "types/config";
 import { configs } from "../../config/constants/chains";
 import { localStorageKeys } from "../../config/constants/localStorage";
 
+export type GlobalConfigState = {
+  chainId: string;
+  chainName?: string;
+};
+
 export const currentConfig =
-  configs[APP_ENV === "development" ? CHAIN_ID.MUMBAI : CHAIN_ID.POLYGON] || {};
+  configs[APP_ENV === "development" ? Chains.MUMBAI : Chains.POLYGON] || {};
 
 export const LOCAL_CONFIG_KEY = localStorageKeys.LOCAL_CONFIG_KEY;
 
 const getInitialChainId = (): ChainId => {
-  const localItem = local.getItem<ConfigState>(LOCAL_CONFIG_KEY);
+  const localItem = local.getItem<GlobalConfigState>(LOCAL_CONFIG_KEY);
 
   if (!localItem || isEmpty(!localItem.chainId)) {
-    local.setItem<ConfigState>(LOCAL_CONFIG_KEY, {
+    local.setItem<GlobalConfigState>(LOCAL_CONFIG_KEY, {
       chainId: DEFAULT_CHAIN_ID.toString(),
     });
   }

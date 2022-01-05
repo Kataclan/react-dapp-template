@@ -1,33 +1,17 @@
+import { localStorageKeys } from "config/constants/localStorage";
 import { ProviderProps } from "contexts/provider";
-import { _getChainId } from "contexts/config/global";
+import { isEmpty } from "lodash";
 import { ChainId } from "types/chains";
 import { DAppProvider, ProviderNames } from "types/web3";
+import local from "utils/storage/local";
 
-import { ethers } from "ethers";
-import { DEFAULT_MUMBAI_RPC, DEFAULT_POLYGON_RPC } from "utils/env-constants";
+export const browserHasInjectedProvider = () => !!window.ethereum;
 
-// TODO: USE INFURA NODES
-const web3ReadOnly: { [chainId: string]: DAppProvider } = {
-  "80001": window.ethereum
-    ? new ethers.providers.Web3Provider(window.ethereum as any)
-    : new ethers.providers.JsonRpcProvider(DEFAULT_MUMBAI_RPC),
-  "137": window.ethereum
-    ? new ethers.providers.Web3Provider(window.ethereum as any)
-    : new ethers.providers.JsonRpcProvider(DEFAULT_POLYGON_RPC),
-};
-
-export const getWeb3ReadOnly = (): DAppProvider => {
-  const chainId = parseInt(_getChainId(), 10);
-  if (!web3ReadOnly[chainId]) {
-    // FOR LOCAL NODES
-    const provider = new ethers.providers.JsonRpcProvider();
-    return provider;
-  }
-  return web3ReadOnly[chainId];
-};
-
-export const setWeb3ReadOnly = (): void => {
-  web3ReadOnly[_getChainId()] = getWeb3ReadOnly();
+export const loadLastUsedProvider = () => {
+  const lastUsedProvider = local.getItem<string>(
+    localStorageKeys.LAST_USED_PROVIDER_KEY
+  );
+  return lastUsedProvider;
 };
 
 export const getAccountFrom = async (

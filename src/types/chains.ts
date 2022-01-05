@@ -12,6 +12,7 @@ export type NativeCurrency = {
   symbol: string;
   decimals: number;
 };
+
 export enum GAS_PRICE_TYPE {
   ORACLE = "ORACLE",
   FIXED = "FIXED",
@@ -33,18 +34,21 @@ export type GasPriceFixed = {
 export type GasPriceUnknown = {
   type: GAS_PRICE_TYPE.UNKNOWN;
 };
+// CHAINS & PROVIDERS
+export enum Chains {
+  MUMBAI = 80001,
+  POLYGON = 137,
+}
+export type ChainId = "137" | "80001";
+
+export enum ChainName {
+  MUMBAI = "Mumbai Testnet",
+  POLYGON = "Polygon Mainnet",
+}
+export type ShortName = "mumbai" | "polygon";
 
 export type GasPrice = (GasPriceOracle | GasPriceFixed | GasPriceUnknown)[];
 
-export enum ChainName {
-  MUMBAI = "MUMBAI",
-  POLYGON = "POLYGON",
-  LOCAL = "LOCAL",
-  UNKNOWN = "UNKNOWN",
-}
-export type ChainId = "137" | "80001" | "";
-
-export type ShortName = "mumbai" | "matic" | "";
 export type ChainConfig = {
   chainId: string;
   chainName: string;
@@ -64,11 +68,4 @@ export type ChainInfo = {
   nativeCurrency: NativeCurrency;
   gasPrice: GasPrice;
   disabledWallets: string[];
-};
-
-export type EthersNetwork = {
-  name: string;
-  chainId: number;
-  _defaultProvider: (providers: DAppProvider) => void;
-  url: string;
 };

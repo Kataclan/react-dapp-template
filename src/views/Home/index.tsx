@@ -1,38 +1,32 @@
-import Button from "components/Button";
+import { FC, useCallback, useEffect, useState } from "react";
+import { ethers, BigNumber } from "ethers";
+
 import { abis } from "config/abis";
+import { DAppProvider } from "types/web3";
 import { useConfig } from "contexts/config";
 import { useProvider } from "contexts/provider";
-import { ethers, BigNumber } from "ethers";
 import { useBlock } from "contexts/block";
-import { random } from "lodash";
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { getContractAddress } from "utils/contracts";
-import { DAppProvider } from "types/web3";
 
 const Home: FC = () => {
   const { chainId } = useConfig();
-  const { props, staticProvider, provider } = useProvider();
+  const { props, rpcProvider } = useProvider();
   const { block } = useBlock();
   const [number, setNumber] = useState<number>();
 
-  const fetchNumber = useCallback(
-    async (provider: DAppProvider | undefined) => {
-      if (provider) {
-        const contract = new ethers.Contract(
-          getContractAddress("TestDB"),
-          abis.TestDB,
-          provider || staticProvider
-        );
-        const values = await contract.retrieve();
-        setNumber(BigNumber.from(values.number).toNumber());
-      }
-    },
-    []
-  );
+  const fetchNumber = useCallback(async () => {
+    const contract = new ethers.Contract(
+      getContractAddress("TestDB"),
+      abis.TestDB,
+      rpcProvider
+    );
+    const values = await contract.retrieve();
+    setNumber(BigNumber.from(values.number).toNumber());
+  }, []);
 
   useEffect(() => {
-    fetchNumber(provider || staticProvider);
-  });
+    fetchNumber();
+  }, [block]);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">

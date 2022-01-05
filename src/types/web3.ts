@@ -6,4 +6,4 @@ export type InfuraProvider = providers.InfuraProvider;
 
 export type DAppProvider = Web3Provider | JsonRPCProvider | InfuraProvider;
 
-type ProviderNames = "injected" | "walletconnect";
+export type ProviderNames = "injected" | "public" | "infura" | "walletconnect";

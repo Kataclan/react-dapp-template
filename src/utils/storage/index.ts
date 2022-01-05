@@ -5,7 +5,6 @@ import Storage from "./Storage";
 const STORAGE_KEYS: Record<ChainId, string> = {
   "137": "POLYGON",
   "80001": "MUMBAI",
-  "": "UNKNOWN",
 };
 
 export const storage = new Storage(window.localStorage, "");

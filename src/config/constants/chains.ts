@@ -1,7 +1,4 @@
-import { getRpcServiceUrl } from "contexts/config/global";
-import { ethers } from "ethers";
-import { ChainConfig, EthersNetwork } from "types/chains";
-import { DAppProvider } from "types/web3";
+import { ChainConfig, ChainId, Chains } from "types/chains";
 import {
   CHAIN_ID,
   DEFAULT_MUMBAI_EXPLORER,
@@ -12,7 +9,7 @@ import {
 
 export enum WALLETS {
   METAMASK = "metamask",
-  WALLET_CONNECT = "walletConnect",
+  WALLET_CONNECT = "walletconnect",
 }
 
 export const MUMBAI_CONFIG = {
@@ -39,24 +36,7 @@ export const POLYGON_CONFIG = {
   blockExplorerUrls: [DEFAULT_POLYGON_EXPLORER],
 };
 
-export const configs: { [chainId: string]: ChainConfig } = {
-  // LOCAL: HARDHAT_CONFIG,
-  MUMBAI_CONFIG: MUMBAI_CONFIG,
-  POLYGON_CONFIG: POLYGON_CONFIG,
-};
-
-export const mumbaiEthers: EthersNetwork = {
-  name: "mumbai",
-  chainId: 80001,
-  url: DEFAULT_MUMBAI_RPC,
-  _defaultProvider: (providers: DAppProvider) =>
-    new ethers.providers.JsonRpcProvider(DEFAULT_MUMBAI_RPC),
-};
-
-export const maticEthers: EthersNetwork = {
-  name: "matic",
-  chainId: 137,
-  url: DEFAULT_POLYGON_RPC,
-  _defaultProvider: (providers: DAppProvider) =>
-    new ethers.providers.JsonRpcProvider(DEFAULT_POLYGON_RPC),
+export const configs: { [key in ChainId]: ChainConfig } = {
+  [Chains.MUMBAI]: MUMBAI_CONFIG,
+  [Chains.POLYGON]: POLYGON_CONFIG,
 };

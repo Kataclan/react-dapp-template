@@ -21,7 +21,7 @@ export const Block = createContext<ContextProps>({ block: 0 });
 
 export const BlockProvider: React.FC<PropsType> = ({ children }) => {
   const [block, setBlock] = useState<number>();
-  const { provider, staticProvider } = useProvider();
+  const { web3Provider: provider, rpcProvider: staticProvider } = useProvider();
   const interval = useRef<NodeJS.Timer>();
 
   const handleSetBlock = useCallback(

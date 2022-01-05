@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext } from "react";
 import noop from "lodash/noop";
-import useSetState from "utils/hooks/useSetState";
+import useSetState from "hooks/useSetState";
 import { Toast, TOAST_ID } from "types/toasts";
 import { Toaster, toast } from "react-hot-toast";
 
@@ -81,7 +81,6 @@ export const NotificationsProvider: React.FC = ({ children }) => {
       ? notification.key.toString()
       : (new Date().getTime() + Math.random()).toString();
     if (notification.message) {
-      console.log("Add key: ", id);
       switch (notification.type) {
         case "error":
           toast.error(notification.message, {
@@ -102,7 +101,6 @@ export const NotificationsProvider: React.FC = ({ children }) => {
   };
 
   const removeToast = (key: TOAST_ID) => {
-    console.log("dismiss", key);
     toast.dismiss(key.toString());
   };
 

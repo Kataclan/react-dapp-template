@@ -1,9 +1,8 @@
 module.exports = {
   mode: "jit",
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  purge: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,mdx}"],
+  content: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,mdx}"],
   important: true,
-  darkMode: false,
+  darkMode: "media",
   theme: {
     fontFamily: {
       sans: ["Marr Sans Web", "sans-serif"],

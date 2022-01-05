@@ -1,6 +1,6 @@
 import { noop } from "lodash";
 import { useNotifications } from "contexts/notifications";
-import useSetState from "utils/hooks/useSetState";
+import useSetState from "hooks/useSetState";
 import { TOAST_MESSAGES } from "config/constants/toasts";
 import { TOAST_ID } from "types/toasts";
 import {

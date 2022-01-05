@@ -1,29 +1,54 @@
 import Button from "components/Button";
+import Modal from "components/Modal";
+import { MODALS } from "components/Modal/builder";
+import { Modals } from "components/Modal/types";
 import Spinner from "components/Spinner";
+import { isValidChainId } from "contexts/config/global";
 import { useProvider } from "contexts/provider";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { shortVersionOf } from "utils/addresses";
 
 const ConnectButton: FC = () => {
-  // const provider = useEthersProvider();
-  // const connect = useEthersConnect();
-  // const { account } = useAccount(provider);
+  const { connect, connecting, props, requestSwitchNetwork } = useProvider();
+  const [isSwitchChainModalOpen, setSwitchChainModalOpen] = useState(false);
 
-  // const Component = isEmpty(account) ? (
-  //   <Button onClick={connect}>CONNECT</Button>
-  // ) : (
-  //   <span>{getHiddenAddresStr(account)}</span>
-  // );
-  // return !provider ? <SkeletonBox containerClassname="w-20 h-10" /> : Component;
+  const handleSwitch = async () => {
+    await requestSwitchNetwork();
+    setSwitchChainModalOpen(false);
+  };
 
-  const { connect, connecting, props } = useProvider();
+  useEffect(() => {
+    if (props.available && !isValidChainId(props.network)) {
+      setSwitchChainModalOpen(true);
+    }
+  }, [props.available, props.network]);
 
-  return props.account ? (
-    <>{shortVersionOf(props.account, 5)}</>
-  ) : (
-    <Button disabled={connecting} onClick={connect}>
-      {connecting ? <Spinner /> : "CONNECT"}
-    </Button>
+  return (
+    <>
+      <Modal
+        {...MODALS[Modals.CHANGE_CHAIN]}
+        open={isSwitchChainModalOpen}
+        onClose={() => setSwitchChainModalOpen(false)}
+        actions={[
+          <Button key="button-switch-chain" onClick={handleSwitch}>
+            Switch
+          </Button>,
+          <Button
+            key="button-close-chain-modal"
+            onClick={() => setSwitchChainModalOpen(false)}
+          >
+            Close
+          </Button>,
+        ]}
+      />
+      {props.available ? (
+        shortVersionOf(props.account, 5)
+      ) : (
+        <Button disabled={connecting} onClick={connect}>
+          {connecting ? <Spinner /> : "CONNECT"}
+        </Button>
+      )}
+    </>
   );
 };
 

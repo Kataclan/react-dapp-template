@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { ethers, BigNumber } from "ethers";
 
 import { DAppProvider } from "types/web3";
@@ -10,7 +10,7 @@ import Button from "components/Button";
 import { useTestDBContract } from "hooks/useContract";
 
 const Notifications: FC = () => {
-  const { provider, props, staticProvider } = useProvider();
+  const { props, rpcProvider } = useProvider();
 
   const [number, setNumber] = useState<number>();
   const _contract = useTestDBContract();
@@ -39,7 +39,7 @@ const Notifications: FC = () => {
         const contract = new ethers.Contract(
           getContractAddress("TestDB"),
           abis.TestDB,
-          provider || staticProvider
+          rpcProvider
         );
         const values = await contract.retrieve();
         setNumber(BigNumber.from(values.number).toNumber());
@@ -49,7 +49,7 @@ const Notifications: FC = () => {
   );
 
   useEffect(() => {
-    fetchNumber(provider || staticProvider);
+    fetchNumber(rpcProvider);
   });
 
   return (
