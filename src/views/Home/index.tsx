@@ -1,12 +1,11 @@
 import { FC, useCallback, useEffect, useState } from "react";
-import { ethers, BigNumber } from "ethers";
 
-import { abis } from "config/abis";
-import { DAppProvider } from "types/web3";
-import { useConfig } from "contexts/config";
-import { useProvider } from "contexts/provider";
-import { useBlock } from "contexts/block";
-import { getContractAddress } from "utils/contracts";
+// import { ethers, BigNumber } from "ethers";
+// import { abis } from "config/abis";
+// import { DAppProvider } from "types/web3";
+// import { useProvider } from "contexts/provider";
+// import { useBlock } from "contexts/block";
+// import { getContractAddress } from "utils/contracts";
 
 const Home: FC = () => {
   // const { chainId } = useConfig();

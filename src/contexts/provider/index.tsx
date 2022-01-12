@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
 } from "react";
 import Web3Modal, { getProviderInfo } from "web3modal";
@@ -16,12 +17,10 @@ import {
   TOAST_DEFAULT_ERROR,
   TOAST_EMPTY_WALLET,
 } from "contexts/notifications/notificationBuilder";
-import { isValidChainId } from "contexts/config/global";
 import { DEFAULT_CHAIN_ID, DEFAULT_RPC_URL } from "utils/env-constants";
 import { localStorageKeys } from "config/constants/localStorage";
 import { ChainId } from "types/chains";
 import { DAppProvider, ProviderNames } from "types/web3";
-import { useConfig } from "contexts/config";
 import useSetState from "hooks/useSetState";
 import local from "utils/storage/local";
 
@@ -37,6 +36,7 @@ import {
   shouldSwitchNetwork,
   switchToDefaultNetwork,
 } from "./network";
+import { isValidChainId, getChainId } from "utils/chain";
 
 export type ProviderProps = {
   name: string;
@@ -80,7 +80,6 @@ export const ProviderContext = createContext<ContextProps>({
 });
 
 export const ProviderContextProvider: React.FC = ({ children }) => {
-  const { chainId, setChain } = useConfig();
   const { enqueueToast } = useNotifications();
 
   // Creates a JsonRpc static provider with the default rpc url of the config chain
@@ -95,6 +94,8 @@ export const ProviderContextProvider: React.FC = ({ children }) => {
     props: buildProviderProps(),
     connecting: false,
   });
+
+  const CHAIN_ID = useMemo(() => getChainId(), []);
 
   // WATCHER: can be needed to poll provider
   // const watcherIntervalRef = useRef<NodeJS.Timer>();
@@ -136,7 +137,7 @@ export const ProviderContextProvider: React.FC = ({ children }) => {
         providerName === "injected" &&
         shouldSwitchNetwork(
           Number(window.ethereum.chainId).toString() as ChainId,
-          chainId
+          CHAIN_ID
         )
       ) {
         //switchNetwork();
@@ -164,17 +165,13 @@ export const ProviderContextProvider: React.FC = ({ children }) => {
       const _chainId = Number(chainId).toString() as ChainId;
       if (isValidChainId(_chainId)) {
         enqueueToast(TOAST_DEFAULT_ERROR);
-        setChain(_chainId);
         setProvider(web3ModalProxy.current);
       }
     });
 
     // Subscribe to provider connection
-    web3ModalProxy.current.on("connect", (info: { chainId: number }) => {
+    web3ModalProxy.current.on("connect", (info: { _chainId: number }) => {
       setState({ connecting: true });
-      if (chainId !== chainId.toString()) {
-        setChain(Number(chainId).toString() as ChainId);
-      }
       setProvider(web3ModalProxy.current);
     });
     // Subscribe to provider disconnection
@@ -258,8 +255,8 @@ export const ProviderContextProvider: React.FC = ({ children }) => {
    * Instantiates web3 modal
    */
   useEffect(() => {
-    web3ModalRef.current = new Web3Modal(web3ModalSetup(chainId));
-  }, [chainId]);
+    web3ModalRef.current = new Web3Modal(web3ModalSetup(CHAIN_ID));
+  }, []);
 
   return (
     <ProviderContext.Provider

@@ -1,12 +1,8 @@
-import {
-  getChainConfig,
-  getExplorerUrl,
-  getPublicRpcUrl,
-} from "../config/global";
 import { ChainId } from "types/chains";
 import { getChainHexStr } from "utils/web3";
 import { DEFAULT_CHAIN_ID } from "utils/env-constants";
 import { noop } from "lodash";
+import { getChainConfig, getExplorerUrl, getPublicRpcUrl } from "utils/chain";
 
 export const WALLET_ERRORS = {
   UNRECOGNIZED_CHAIN: 4902,
@@ -64,27 +60,21 @@ export const shouldSwitchNetwork = (
  * Try switching the wallet chain to the default project chain,
  * and if it fails, try adding the default chain config
  */
-export const switchToDefaultNetwork = async (
-  onSwitch = noop,
-  onError = noop
-): Promise<void> => {
+export const switchToDefaultNetwork = async (): Promise<void> => {
   const chainId = DEFAULT_CHAIN_ID as ChainId;
   try {
     await metamaskRequestSwitch(chainId);
-    onSwitch();
   } catch (e: any) {
-    console.log(e);
     if (e.code === WALLET_ERRORS.USER_REJECTED) {
-      return onError();
+      throw new Error("User rejected wallet connection");
     }
 
     if (e.code === WALLET_ERRORS.UNRECOGNIZED_CHAIN) {
       try {
         await metamaskRequestAdd(chainId);
-        onSwitch();
       } catch (e: any) {
         if (e.code === WALLET_ERRORS.USER_REJECTED) {
-          return onError();
+          throw new Error("User rejected wallet connection");
         }
       }
     }
