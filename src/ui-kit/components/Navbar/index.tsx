@@ -7,7 +7,7 @@ import shortVersionOf from "../../utils/shortVersionString";
 interface PropsType {
   menuItems: ReactElement[];
   logo: ReactElement;
-  onClickConnect: () => {};
+  onClickConnect: () => void;
   account?: string;
   connecting?: boolean;
 }

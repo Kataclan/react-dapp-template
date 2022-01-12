@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { abis } from "config/abis";
 import addresses from "config/constants/contract-addresses";
-import { getRpcNodeUrl } from "./getRpcNodeUrl";
+import { getRpcNodeUrl } from "./rpcNode";
 import { ContractName } from "types/contracts";
 import { getChainId } from "./chain";
 

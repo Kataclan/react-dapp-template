@@ -85,9 +85,7 @@ const DialogComponent: FC<DialogProps> = ({
                 </div>
               </div>
             </div>
-            <div className="flex justify-center space-x-8 mt-5 sm:mt-6">
-              {actions}
-            </div>
+            <div className="flex justify-center space-x-8 mt-5 sm:mt-6"></div>
           </div>
         </Transition.Child>
       </Dialog>

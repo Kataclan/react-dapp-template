@@ -12,7 +12,7 @@ export type DialogProps = {
   title: string;
 
   description?: string;
-  actions?: DialogAction[];
+  actions?: ReactElement[];
 
   closeOnOverlayClick?: boolean;
   containerClasses?: string;

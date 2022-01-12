@@ -8,10 +8,22 @@ import { NAVBAR_MENU } from "./config";
 import MenuDropdown from "ui-kit/components/MenuDropdown";
 import { RouterLink } from "ui-kit/components/Links";
 import { useLocation } from "react-router";
+import { useConnectWallet } from "hooks/useConnectWallet";
+import { useNotifications } from "contexts/notifications";
+import { useChangeChainDialog } from "hooks/useChangeChainDialog";
 
 const NavbarPolygon: FC = () => {
-  const { connect, props } = useProvider();
+  const { props } = useProvider();
   const { pathname } = useLocation();
+  const { enqueueToast } = useNotifications();
+  const [connectWallet] = useConnectWallet((e: any) => {
+    enqueueToast({
+      message:
+        "You cancelled the connection to your wallet. Please, consider to try again to unlock all features.",
+      type: "error",
+    });
+  });
+  useChangeChainDialog();
 
   const menuItems = useMemo(
     () =>
@@ -38,14 +50,12 @@ const NavbarPolygon: FC = () => {
   );
 
   return (
-    <div className="flex flex-col w-screen h-screen">
-      <Navbar
-        logo={<Logo />}
-        menuItems={menuItems}
-        onClickConnect={connect}
-        account={props.account}
-      />
-    </div>
+    <Navbar
+      logo={<Logo />}
+      menuItems={menuItems}
+      onClickConnect={connectWallet}
+      account={props.account}
+    />
   );
 };
 

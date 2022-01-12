@@ -8,7 +8,17 @@ import {
 
 import { ChainConfig, ChainId, ChainName, Chains } from "types/chains";
 import { configs, EMPTY_CONFIG } from "config/constants/chains";
+import { metamaskRequestAdd, metamaskRequestSwitch } from "./metamask";
 
+export const WALLET_ERRORS = {
+  UNRECOGNIZED_CHAIN: 4902,
+  USER_REJECTED: 4001,
+  ADD_EXISTING_CHAIN: -32600,
+};
+
+/**
+ * Set chain config by project environment
+ */
 const _chainConfig =
   configs[APP_ENV === "development" ? Chains.MUMBAI : Chains.POLYGON] ||
   EMPTY_CONFIG;
@@ -37,4 +47,35 @@ export const getPublicRpcUrl = (): string => {
 
 export const getExplorerUrl = (): string => {
   return DEFAULT_EXPLORER_URL;
+};
+
+export const shouldSwitchNetwork = (
+  desiredNetwork: string,
+  currentNetwork: string
+): boolean => {
+  return currentNetwork ? desiredNetwork !== currentNetwork : false;
+};
+
+/**
+ * Try switching the wallet chain to the default project chain,
+ * and if it fails, try adding the default chain config
+ */
+export const switchToDefaultNetwork = async (): Promise<void> => {
+  try {
+    await metamaskRequestSwitch(getChainId());
+  } catch (e: any) {
+    if (e.code === WALLET_ERRORS.USER_REJECTED) {
+      throw new Error("User rejected wallet connection");
+    }
+
+    if (e.code === WALLET_ERRORS.UNRECOGNIZED_CHAIN) {
+      try {
+        await metamaskRequestAdd(getChainConfig());
+      } catch (e: any) {
+        if (e.code === WALLET_ERRORS.USER_REJECTED) {
+          throw new Error("User rejected wallet connection");
+        }
+      }
+    }
+  }
 };
