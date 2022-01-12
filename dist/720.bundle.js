@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdapp_template_polygon=self.webpackChunkdapp_template_polygon||[]).push([[720],{8720:function(e,l,s){s.r(l);var t=s(5893);l.default=()=>(0,t.jsx)("div",Object.assign({className:"w-full h-full flex items-center justify-center"},{children:(0,t.jsx)("span",{children:"404 NOT FOUND"},void 0)}),void 0)}}]);

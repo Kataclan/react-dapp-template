@@ -1,11 +1,10 @@
 import { lazy } from "react";
 import { Navigate } from "react-router";
 
-import NavbarLayout from "components/layouts/NavbarLayout";
-
-import Loadable from "components/Loadable";
-import PageLoader from "components/PageLoader";
 import { ROOT_PATHS } from "./paths";
+import PageLoader from "ui-kit/components/PageLoader";
+import Loadable from "ui-kit/components/Loadable";
+import NavbarLayout from "layouts/NavbarLayout";
 
 const Home = Loadable(
   PageLoader,
@@ -17,7 +16,7 @@ const Notifications = Loadable(
 );
 const NotFound = Loadable(
   PageLoader,
-  lazy(() => import("../components/PageNotFound"))
+  lazy(() => import("../views/NotFound"))
 );
 
 const defaultRoutes = {

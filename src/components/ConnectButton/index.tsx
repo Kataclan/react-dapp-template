@@ -1,8 +1,3 @@
-import Button from "components/Button";
-import Modal from "components/Modal";
-import { MODALS } from "components/Modal/builder";
-import { Modals } from "components/Modal/types";
-import Spinner from "components/Spinner";
 import { isValidChainId } from "contexts/config/global";
 import { useProvider } from "contexts/provider";
 import { FC, useEffect, useState } from "react";
@@ -25,7 +20,7 @@ const ConnectButton: FC = () => {
 
   return (
     <>
-      <Modal
+      {/* <Modal
         {...MODALS[Modals.CHANGE_CHAIN]}
         open={isSwitchChainModalOpen}
         onClose={() => setSwitchChainModalOpen(false)}
@@ -40,14 +35,13 @@ const ConnectButton: FC = () => {
             Close
           </Button>,
         ]}
-      />
-      {props.available ? (
-        shortVersionOf(props.account, 5)
-      ) : (
-        <Button disabled={connecting} onClick={connect}>
-          {connecting ? <Spinner /> : "CONNECT"}
-        </Button>
-      )}
+      /> */}
+      {
+        props.available ? shortVersionOf(props.account, 5) : <></>
+        // <Button disabled={connecting} onClick={connect}>
+        //   {connecting ? <Spinner /> : "CONNECT"}
+        // </Button>
+      }
     </>
   );
 };

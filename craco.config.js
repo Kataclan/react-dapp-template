@@ -2,11 +2,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
 const dotenv = require("dotenv");
-
-const source = path.resolve(__dirname, "src");
-
-const throwError = (message) => console.log(message);
-
 const mode = process.env.NODE_ENV;
 
 module.exports = {
@@ -86,7 +81,7 @@ module.exports = {
               ],
             },
             {
-              test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
+              test: /\.(woff|woff2|eot|ttf)$/,
               use: [
                 {
                   loader: "url-loader",
@@ -95,6 +90,10 @@ module.exports = {
                   },
                 },
               ],
+            },
+            {
+              test: /\.svg$/,
+              use: ["@svgr/webpack"],
             },
           ],
         },
@@ -114,6 +113,7 @@ module.exports = {
         resolve: {
           extensions: [".ts", ".tsx", ".js", ".jsx"],
           alias: {
+            assets: path.resolve(__dirname, "src/assets"),
             components: path.resolve(__dirname, "src/components"),
             config: path.resolve(__dirname, "src/config"),
             contexts: path.resolve(__dirname, "src/contexts"),
@@ -122,6 +122,8 @@ module.exports = {
             types: path.resolve(__dirname, "src/types"),
             utils: path.resolve(__dirname, "src/utils"),
             views: path.resolve(__dirname, "src/views"),
+            "ui-kit": path.resolve(__dirname, "src/ui-kit"),
+            layouts: path.resolve(__dirname, "src/layouts"),
           },
           fallback: {
             buffer: require.resolve("buffer/"),

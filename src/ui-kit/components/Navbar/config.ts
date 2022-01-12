@@ -1,6 +1,6 @@
-import { MenuItem } from "../MenuDropdown";
+import { DropdownMenuItem } from "../MenuDropdown";
 
-export const TOOLS_MENU_ITEMS: MenuItem[] = [
+export const TOOLS_MENU_ITEMS: DropdownMenuItem[] = [
   {
     title: "Notifications",
     href: "/tools/notifications",
@@ -11,7 +11,7 @@ export const TOOLS_MENU_ITEMS: MenuItem[] = [
 export const NAVBAR_MENU: {
   title: string;
   to: string;
-  children: MenuItem[];
+  children: DropdownMenuItem[];
   disabled?: boolean;
 }[] = [
   {

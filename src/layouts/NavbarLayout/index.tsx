@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { Outlet } from "react-router";
 
-import Navbar from "components/Navbar";
+import NavbarPolygon from "components/NavbarPolygon";
 
-const NavbarLayout: FC = ({ children }) => {
+const NavbarLayout: FC = () => {
   return (
     <div className="flex flex-col w-screen h-screen">
-      <Navbar />
+      <NavbarPolygon />
       <main className="flex flex-1 flex-col items-center justify-center">
         <Outlet />
       </main>

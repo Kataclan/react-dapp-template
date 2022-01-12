@@ -1,22 +1,24 @@
-import "./styles.scss";
 import { Transition } from "@headlessui/react";
+import { FC, Fragment } from "react";
+import { Dialog } from "@headlessui/react";
 
 import {
   backgroundOverlayTransition,
   modalPanelTransition,
-} from "config/constants/cssTransitions";
-import React, { FC, Fragment } from "react";
-import { Dialog } from "@headlessui/react";
+} from "../../constants/cssTransitions";
 
-export type ModalProps = {
-  open: boolean;
-  title: string;
-  content: string | JSX.Element;
-  onClose: () => void;
-  actions: React.ReactNode[];
-};
+import { DialogProps } from "./types";
+import classname from "utils/classname";
 
-const Modal: FC<ModalProps> = ({ open, title, content, onClose, actions }) => {
+const DialogComponent: FC<DialogProps> = ({
+  children,
+  title,
+  open = false,
+  description = "",
+  onClose = () => null,
+  actions = [],
+  closeOnOverlayClick = true,
+}) => {
   return (
     <Transition show={open} as={Fragment}>
       <Dialog
@@ -32,7 +34,12 @@ const Modal: FC<ModalProps> = ({ open, title, content, onClose, actions }) => {
           leaveFrom={backgroundOverlayTransition.leaveFrom}
           leaveTo={backgroundOverlayTransition.leaveTo}
         >
-          <Dialog.Overlay className="fixed inset-0 backdrop-blur-xs" />
+          <Dialog.Overlay
+            className={classname(
+              "fixed inset-0 backdrop-blur-xs",
+              !closeOnOverlayClick && "pointer-events-none"
+            )}
+          />
         </Transition.Child>
         <Transition.Child
           as={Fragment}
@@ -70,7 +77,11 @@ const Modal: FC<ModalProps> = ({ open, title, content, onClose, actions }) => {
                   {title}
                 </h3>
                 <div className="mt-2">
-                  <p className="text-sm text-gray-500">{content}</p>
+                  {description !== "" ? (
+                    <p className="text-sm text-gray-500">{description}</p>
+                  ) : (
+                    children
+                  )}
                 </div>
               </div>
             </div>
@@ -84,4 +95,4 @@ const Modal: FC<ModalProps> = ({ open, title, content, onClose, actions }) => {
   );
 };
 
-export default Modal;
+export default DialogComponent;

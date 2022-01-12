@@ -1,3 +1,4 @@
+import "./web3-modal-styles.scss";
 import {
   createContext,
   useCallback,
@@ -96,7 +97,7 @@ export const ProviderContextProvider: React.FC = ({ children }) => {
   });
 
   // WATCHER: can be needed to poll provider
-  const watcherIntervalRef = useRef<NodeJS.Timer>();
+  // const watcherIntervalRef = useRef<NodeJS.Timer>();
 
   // const watchProvider = useCallback(() => {
   //   if (watcherIntervalRef.current) {

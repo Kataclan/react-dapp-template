@@ -2,11 +2,11 @@ import { FC, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
-import MenuLink from "components/Links/MenuLink";
+import MenuLink from "ui-kit/components/Links/MenuLink";
 import { menuTransition } from "config/constants/cssTransitions";
 import classname from "utils/classname";
 
-export interface MenuItem {
+export interface DropdownMenuItem {
   title: string;
   href: string;
   className?: string;
@@ -15,7 +15,7 @@ export interface MenuItem {
 
 interface PropsType {
   title: string;
-  items: MenuItem[];
+  items: DropdownMenuItem[];
 }
 
 const MenuDropdown: FC<PropsType> = ({ title, items }) => {

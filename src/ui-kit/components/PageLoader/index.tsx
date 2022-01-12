@@ -1,9 +1,10 @@
 import { FC } from "react";
 
-const PageLoader: FC = () => (
+const PageLoader: FC = ({ children }) => (
   <div className="w-full h-full flex items-center justify-center">
-    <div
-      className="
+    {children || (
+      <div
+        className="
     spinner-border
     animate-spin
     inline-block
@@ -13,10 +14,11 @@ const PageLoader: FC = () => (
     rounded-full
     text-green-500
   "
-      role="status"
-    >
-      <span className="visually-hidden">Loading...</span>
-    </div>
+        role="status"
+      >
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    )}
   </div>
 );
 
