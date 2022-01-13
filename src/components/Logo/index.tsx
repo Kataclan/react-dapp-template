@@ -1,4 +1,4 @@
-import LogoIcon from "assets/icons/matic.svg";
+import { ReactComponent as LogoIcon } from "assets/icons/matic.svg";
 import { CHAIN_ID, DEFAULT_CHAIN_ID } from "utils/env-constants";
 
 const Logo = () => {

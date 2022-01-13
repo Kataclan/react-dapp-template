@@ -1,4 +1,4 @@
-import "./web3-modal-styles.scss";
+import "./web3-modal-styles.css";
 import {
   createContext,
   useCallback,
@@ -13,13 +13,12 @@ import noop from "lodash/noop";
 
 import { DEFAULT_RPC_URL } from "utils/env-constants";
 import { localStorageKeys } from "config/constants/localStorage";
-import { ChainId } from "types/chains";
 import { DAppProvider, ProviderNames, ProviderProps } from "types/web3";
 import useSetState from "hooks/useSetState";
 import local from "utils/storage/local";
 
 import { web3ModalSetup } from "./web3Modal";
-import { isValidChainId, getChainId } from "utils/chain";
+import { getChainId } from "utils/chain";
 import { getDAppProviderInfo } from "utils/web3";
 
 export const buildProviderProps = (props?: ProviderProps) => ({
