@@ -1,5 +1,5 @@
-import { _getChainId } from "contexts/config/global";
 import { ChainId } from "types/chains";
+import { getChainId } from "utils/chain";
 import Storage from "./Storage";
 
 const STORAGE_KEYS: Record<ChainId, string> = {
@@ -9,7 +9,7 @@ const STORAGE_KEYS: Record<ChainId, string> = {
 
 export const storage = new Storage(window.localStorage, "");
 
-export const getStoragePrefix = (id = _getChainId()): string => {
+export const getStoragePrefix = (id = getChainId()): string => {
   return STORAGE_KEYS[id] || id;
 };
 

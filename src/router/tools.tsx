@@ -1,11 +1,11 @@
 import { lazy } from "react";
 import { Navigate } from "react-router";
 
-import NavbarLayout from "components/layouts/NavbarLayout";
-import PageLoader from "components/PageLoader";
-import Loadable from "components/Loadable";
+import NavbarLayout from "layouts/NavbarLayout";
 
 import { TOOLS_PATHS } from "./paths";
+import Loadable from "ui-kit/components/Loadable";
+import PageLoader from "ui-kit/components/PageLoader";
 
 const Notifications = Loadable(
   PageLoader,

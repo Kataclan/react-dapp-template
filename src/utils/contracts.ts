@@ -1,12 +1,12 @@
 import { ethers } from "ethers";
 import { abis } from "config/abis";
 import addresses from "config/constants/contract-addresses";
-import { getRpcNodeUrl } from "./getRpcNodeUrl";
-import { _getChainId } from "contexts/config/global";
+import { getRpcNodeUrl } from "./rpcNode";
 import { ContractName } from "types/contracts";
+import { getChainId } from "./chain";
 
 export const getContractAddress = (contractName: ContractName): string => {
-  return addresses[contractName][_getChainId()];
+  return addresses[contractName][getChainId()];
 };
 
 const getContract = (

@@ -6,8 +6,8 @@ import { abis } from "config/abis";
 import { useProvider } from "contexts/provider";
 import useTransactionLifecycle from "hooks/useConfirmTransaction";
 import { getContractAddress } from "utils/contracts";
-import Button from "components/Button";
 import { useTestDBContract } from "hooks/useContract";
+import Button from "ui-kit/components/Button";
 
 const Notifications: FC = () => {
   const { props, rpcProvider } = useProvider();

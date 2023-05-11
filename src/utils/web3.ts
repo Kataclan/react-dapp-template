@@ -1,50 +1,46 @@
-import { BigNumber } from "@ethersproject/bignumber";
+import { ChainId } from "types/chains";
+import { DAppProvider, ProviderNames, ProviderProps } from "types/web3";
 
-/**
- * Check if string is HEX, requires a 0x in front
- *
- * @method isHexStrict
- * @param {String} hex to be checked
- * @returns {Boolean}
- */
-const isHexStrict = (hex: string) => {
-  return (
-    (typeof hex === "string" || typeof hex === "number") &&
-    /^(-)?0x[0-9a-f]*$/i.test(hex)
-  );
+export const browserHasInjectedProvider = () => !!window.ethereum;
+
+export const getAccountFrom = async (
+  web3Provider: DAppProvider
+): Promise<string | null> => {
+  const signer = web3Provider.getSigner();
+  if (signer) {
+    try {
+      const account = await signer.getAddress();
+      return account;
+    } catch (e: any) {}
+  }
+  return null;
 };
 
-export const numberToHex = (value: number | string) => {
-  if (value === null || value === undefined) {
-    return value;
-  }
-
-  if (!isFinite(value as number) && !isHexStrict(value.toString())) {
-    throw new Error('Given input "' + value + '" is not a number.');
-  }
-
-  var number = toBigNumber(value);
-  var result = number.toString();
-
-  return number.lt(BigNumber.from(0))
-    ? "-0x" + result.substr(1)
-    : `0x${parseInt("0x" + result, 16)}`;
+export const getChainIdFrom = async (
+  web3Provider: DAppProvider
+): Promise<number> => {
+  const { chainId } = await web3Provider.getNetwork();
+  return chainId;
 };
 
-/**
- * Takes an input and transforms it into an BN
- *
- * @method toBN
- * @param {Number|String|BigNumber} number, string, HEX string or BN
- * @return {BigNumber} BN
- */
-export const toBigNumber = (number: number | string | BigNumber) => {
-  try {
-    return BigNumber.from(number);
-  } catch (e) {
-    throw new Error(e + ' Given value: "' + number + '"');
-  }
+export const getDAppProviderInfo = async (
+  dappProvider: DAppProvider,
+  providerName?: ProviderNames
+): Promise<ProviderProps> => {
+  const network = await getChainIdFrom(dappProvider);
+  const account = (await getAccountFrom(dappProvider)) || "";
+  const available = Boolean(account);
+
+  return {
+    name: providerName || "unknown",
+    available,
+    loaded: !!account,
+    account,
+    network: network.toString() as ChainId,
+  };
 };
 
-export const getChainHexStr = (chainId: string) =>
-  `0x${parseInt(chainId, 10).toString(16)}`;
+export const isTxPendingError = (err: Error): boolean => {
+  const WEB3_TX_NOT_MINED_ERROR = "Transaction was not mined within";
+  return (err.message || "").startsWith(WEB3_TX_NOT_MINED_ERROR);
+};

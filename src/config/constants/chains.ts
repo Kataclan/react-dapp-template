@@ -12,7 +12,19 @@ export enum WALLETS {
   WALLET_CONNECT = "walletconnect",
 }
 
-export const MUMBAI_CONFIG = {
+export const EMPTY_CONFIG: ChainConfig = {
+  chainId: "",
+  chainName: "",
+  nativeCurrency: {
+    name: "",
+    symbol: "",
+    decimals: 0,
+  },
+  rpcUrls: [],
+  blockExplorerUrls: [],
+};
+
+export const MUMBAI_CONFIG: ChainConfig = {
   chainId: `0x${parseInt(CHAIN_ID.MUMBAI, 10).toString(16)}`,
   chainName: "Mumbai Network",
   nativeCurrency: {
@@ -24,7 +36,7 @@ export const MUMBAI_CONFIG = {
   blockExplorerUrls: [DEFAULT_MUMBAI_EXPLORER],
 };
 
-export const POLYGON_CONFIG = {
+export const POLYGON_CONFIG: ChainConfig = {
   chainId: `0x${parseInt(CHAIN_ID.POLYGON || "", 10).toString(16)}`,
   chainName: "Polygon Network",
   nativeCurrency: {
